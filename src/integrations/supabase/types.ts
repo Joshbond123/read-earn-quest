@@ -14,16 +14,298 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      api_keys: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean
+          key_value: string
+          last_used_at: string | null
+          provider: string
+          usage_count: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          key_value: string
+          last_used_at?: string | null
+          provider?: string
+          usage_count?: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          key_value?: string
+          last_used_at?: string | null
+          provider?: string
+          usage_count?: number
+        }
+        Relationships: []
+      }
+      articles: {
+        Row: {
+          category: string
+          content: string
+          country_code: string
+          created_at: string
+          external_id: string | null
+          id: string
+          image_url: string | null
+          published_at: string
+          read_count: number
+          source: string | null
+          summary: string | null
+          title: string
+        }
+        Insert: {
+          category: string
+          content: string
+          country_code: string
+          created_at?: string
+          external_id?: string | null
+          id?: string
+          image_url?: string | null
+          published_at: string
+          read_count?: number
+          source?: string | null
+          summary?: string | null
+          title: string
+        }
+        Update: {
+          category?: string
+          content?: string
+          country_code?: string
+          created_at?: string
+          external_id?: string | null
+          id?: string
+          image_url?: string | null
+          published_at?: string
+          read_count?: number
+          source?: string | null
+          summary?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      notification_settings: {
+        Row: {
+          created_at: string
+          id: string
+          notification_interval_hours: number
+          push_notifications: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          notification_interval_hours?: number
+          push_notifications?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          notification_interval_hours?: number
+          push_notifications?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          articles_read_today: number
+          country_code: string | null
+          created_at: string
+          email: string
+          id: string
+          plan_type: string
+          points: number
+          referral_code: string | null
+          referred_by: string | null
+          total_articles_read: number
+          updated_at: string
+          usdt_wallet_bep20: string | null
+          usdt_wallet_trc20: string | null
+          user_id: string
+        }
+        Insert: {
+          articles_read_today?: number
+          country_code?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          plan_type?: string
+          points?: number
+          referral_code?: string | null
+          referred_by?: string | null
+          total_articles_read?: number
+          updated_at?: string
+          usdt_wallet_bep20?: string | null
+          usdt_wallet_trc20?: string | null
+          user_id: string
+        }
+        Update: {
+          articles_read_today?: number
+          country_code?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          plan_type?: string
+          points?: number
+          referral_code?: string | null
+          referred_by?: string | null
+          total_articles_read?: number
+          updated_at?: string
+          usdt_wallet_bep20?: string | null
+          usdt_wallet_trc20?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_referred_by_fkey"
+            columns: ["referred_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      reading_history: {
+        Row: {
+          article_id: string
+          id: string
+          points_earned: number
+          read_at: string
+          user_id: string
+        }
+        Insert: {
+          article_id: string
+          id?: string
+          points_earned?: number
+          read_at?: string
+          user_id: string
+        }
+        Update: {
+          article_id?: string
+          id?: string
+          points_earned?: number
+          read_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reading_history_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: false
+            referencedRelation: "articles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      system_config: {
+        Row: {
+          description: string | null
+          id: string
+          key: string
+          updated_at: string
+          value: string
+        }
+        Insert: {
+          description?: string | null
+          id?: string
+          key: string
+          updated_at?: string
+          value: string
+        }
+        Update: {
+          description?: string | null
+          id?: string
+          key?: string
+          updated_at?: string
+          value?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      withdrawals: {
+        Row: {
+          admin_notes: string | null
+          created_at: string
+          id: string
+          points_used: number
+          processed_at: string | null
+          status: string
+          usdt_amount: number
+          user_id: string
+          wallet_address: string
+          wallet_type: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          created_at?: string
+          id?: string
+          points_used: number
+          processed_at?: string | null
+          status?: string
+          usdt_amount: number
+          user_id: string
+          wallet_address: string
+          wallet_type: string
+        }
+        Update: {
+          admin_notes?: string | null
+          created_at?: string
+          id?: string
+          points_used?: number
+          processed_at?: string | null
+          status?: string
+          usdt_amount?: number
+          user_id?: string
+          wallet_address?: string
+          wallet_type?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +432,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
